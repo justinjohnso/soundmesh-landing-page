@@ -235,7 +235,7 @@ const features = [
             {techSpecs.map((item) => (
               <Card class={`flex items-start gap-6 border-l-8 ${item.borderColor}`}>
                 <div class={`p-3 border-2 border-black rounded-lg shrink-0 ${item.bgColor}`}>
-                  <item.icon size={28} class={item.color} />
+                  <item.icon size={28} className={item.color} />
                 </div>
                 <div>
                   <h4 class="text-xl font-bold mb-2">{item.title}</h4>
@@ -254,7 +254,7 @@ const features = [
             {features.map((item) => (
               <div class="bg-white border-2 border-black rounded-xl p-6 flex flex-col shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                 <div class={`self-end p-2 border-2 border-black rounded-full mb-4 ${item.bg}`}>
-                  <item.icon size={28} class={item.text} />
+                  <item.icon size={28} className={item.text} />
                 </div>
                 <div>
                   <h4 class="font-bold text-lg md:text-2xl leading-tight mb-2">{item.label}</h4>
@@ -266,8 +266,11 @@ const features = [
           </div>
         </section>
 
-        <section class="py-24">
+        <section class="py-24 text-center">
           <div class="bg-orange-500 border-4 border-black rounded-3xl p-12 md:p-20 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-yellow-400 rounded-full mix-blend-multiply filter blur-2xl opacity-50 translate-x-1/2 -translate-y-1/2"></div>
+            <div class="absolute bottom-0 left-0 w-64 h-64 bg-pink-500 rounded-full mix-blend-multiply filter blur-2xl opacity-50 -translate-x-1/2 translate-y-1/2"></div>
+            
             <div class="relative z-10">
               <h2 class="text-3xl md:text-5xl font-black text-black tracking-tight uppercase leading-none">
                 What would you build if distributed audio was this easy?
@@ -275,13 +278,13 @@ const features = [
             </div>
           </div>
         </section>
-
-        <footer class="py-12border-t-2 border-black/10">
-          <div class="text-gray-600 font-mono text-sm font-bold flex flex-col md:flex-row px-6">
-            <p>© 2026 SoundMesh Systems</p>
-          </div>
-        </footer>
       </main>
+
+      <footer class="py-12 text-center border-t-2 border-black/10">
+        <div class="max-w-6xl mx-auto px-6 text-gray-600 font-mono text-sm font-bold flex flex-col md:flex-row justify-between items-center gap-4">
+          <p>© 2026 SoundMesh Systems</p>
+        </div>
+      </footer>
     </div>
   </body>
 </html>
