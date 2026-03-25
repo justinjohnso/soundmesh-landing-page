@@ -61,3 +61,14 @@ The workflow builds with `pnpm` and publishes `dist/`.
 
 - For project pages (`owner/repo`), base becomes `/${repo}`.
 - For user/org pages (`owner.github.io`), base stays `/`.
+- For custom domains (e.g. `soundmesh.xyz`), GitHub Pages metadata is used so base stays `/` and asset paths remain correct.
+
+### Custom domain
+
+This project includes `public/CNAME`:
+
+```txt
+soundmesh.xyz
+```
+
+GitHub Pages will publish using this domain once DNS is configured in repository settings.
