@@ -1,5 +1,5 @@
-import React from "react";
-import { Activity, Volume2, Monitor, Wifi, ShieldAlert, GitMerge, Zap, Users, Headphones } from "lucide-react";
+import React, { useState, useRef } from "react";
+import { Activity, Volume2, Monitor, Wifi, ShieldAlert, GitMerge, Zap, Users, Headphones, Play } from "lucide-react";
 
 const Card = ({ children, className = "" }) => (
   <div className={`bg-white border-2 border-black rounded-xl p-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] ${className}`}>
@@ -34,6 +34,15 @@ const CassetteNode = ({ color = "bg-pink-500", label = "TX-01" }) => (
 );
 
 export default function LandingPage() {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef(null);
+
+  const handlePlayClick = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#faf9f6] text-black font-sans relative overflow-x-hidden selection:bg-yellow-300">
       <div className="absolute inset-0 z-0 pointer-events-none opacity-40 bg-[linear-gradient(to_right,#cbd5e1_1px,transparent_1px),linear-gradient(to_bottom,#cbd5e1_1px,transparent_1px)] bg-[size:32px_32px]"></div>
@@ -82,11 +91,28 @@ export default function LandingPage() {
 
         {/* Video Section */}
         <section className="py-12">
-          <div className="border-4 border-black rounded-xl overflow-hidden shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] bg-black">
-            <video className="w-full aspect-video" controls>
+          <div className="border-4 border-black rounded-xl overflow-hidden shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] bg-black relative group">
+            <video 
+              ref={videoRef}
+              className="w-full aspect-video cursor-pointer" 
+              controls={isPlaying}
+              onPlay={() => setIsPlaying(true)}
+              onPause={() => setIsPlaying(false)}
+            >
               <source src="/videos/soundmesh-brief.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
+            
+            {!isPlaying && (
+              <div 
+                className="absolute inset-0 flex items-center justify-center bg-black/40 cursor-pointer transition-colors hover:bg-black/30 z-10"
+                onClick={handlePlayClick}
+              >
+                <div className="w-24 h-24 bg-white/20 backdrop-blur-md border-4 border-white/80 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.3)] transition-transform group-hover:scale-110">
+                  <Play size={48} className="text-white fill-white ml-2" />
+                </div>
+              </div>
+            )}
           </div>
         </section>
 
@@ -223,14 +249,14 @@ export default function LandingPage() {
                 icon: Headphones 
               },
             ].map((item, i) => (
-              <div key={i} className="bg-white border-2 border-black rounded-xl p-6 flex flex-col shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group hover:bg-black hover:text-white transition-colors cursor-crosshair">
-                <div className="self-end p-2 bg-gray-100 border-2 border-black rounded-full group-hover:bg-yellow-400 group-hover:text-black transition-colors mb-4">
+              <div key={i} className="bg-white border-2 border-black rounded-xl p-6 flex flex-col shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                <div className="self-end p-2 bg-gray-100 border-2 border-black rounded-full mb-4">
                   <item.icon size={28} />
                 </div>
                 <div>
                   <h4 className="font-bold text-lg md:text-2xl leading-tight mb-2">{item.label}</h4>
                   <p className="text-sm font-medium opacity-80">{item.desc}</p>
-                  <div className="w-8 h-1 bg-current mt-4 group-hover:bg-yellow-400 transition-colors"></div>
+                  <div className="w-8 h-1 bg-black mt-4"></div>
                 </div>
               </div>
             ))}
