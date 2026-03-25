@@ -1,6 +1,110 @@
 ---
 import "../styles/global.css";
-import LandingPage from "../components/LandingPage";
+import { Activity, Volume2, Monitor, Wifi, ShieldAlert, GitMerge, Zap, Users, Headphones } from "lucide-react";
+import Card from "../components/Card.astro";
+import CassetteNode from "../components/CassetteNode.astro";
+import VideoPlayer from "../components/VideoPlayer.jsx";
+
+const problems = [
+  {
+    title: "Cable hell",
+    desc: "Stringing together 100 feet of tripping hazards just to get sound across a room.",
+    color: "text-pink-400"
+  },
+  {
+    title: "Flaky Bluetooth",
+    desc: "Consumer systems that drop out constantly and limit you to linking just two or three speakers of the exact same brand.",
+    color: "text-yellow-400"
+  },
+  {
+    title: "Pro systems",
+    desc: "Dropping thousands of dollars on expensive, infrastructure-heavy Audio-over-IP setups.",
+    color: "text-blue-400"
+  }
+];
+
+const steps = [
+  {
+    step: "1",
+    title: "Plug in your source",
+    desc: "Connect your phone, laptop, or DJ mixer into a SoundMesh <span class=\"font-bold\">SRC</span> node.",
+    color: "bg-pink-500",
+    textColor: "text-white"
+  },
+  {
+    step: "2",
+    title: "Plug in your outputs",
+    desc: "Plug your speakers or headphones into our <span class=\"font-bold\">OUT</span> nodes anywhere in the space.",
+    color: "bg-yellow-400",
+    textColor: "text-black"
+  },
+  {
+    step: "3",
+    title: "Sit back and listen",
+    desc: "The devices automatically form their own high-bandwidth network.",
+    color: "bg-blue-500",
+    textColor: "text-white"
+  }
+];
+
+const techSpecs = [
+  {
+    title: "Mix and match everything",
+    desc: "We don't care what speakers you use. Connect a pair of studio monitors, a massive PA system, and a random Bluetooth speaker via aux cable. If it has an input, it joins the mesh.",
+    icon: Volume2,
+    color: "text-pink-600",
+    bgColor: "bg-pink-100",
+    borderColor: "border-l-pink-500"
+  },
+  {
+    title: "Studio-quality sound",
+    desc: "We aren't compressing your music into garbage. SoundMesh transmits at a professional baseline of 24-bit/48kHz audio.",
+    icon: Activity,
+    color: "text-yellow-600",
+    bgColor: "bg-yellow-100",
+    borderColor: "border-l-yellow-400"
+  },
+  {
+    title: "A self-healing network",
+    desc: "Because the nodes form a true mesh, there is no single point of failure. If someone trips over a receiver or walks out of range, the rest of the network survives and re-routes the audio automatically.",
+    icon: ShieldAlert,
+    color: "text-blue-600",
+    bgColor: "bg-blue-100",
+    borderColor: "border-l-blue-400"
+  },
+  {
+    title: "Look under the hood",
+    desc: "Users don't trust what they can't see. So we built the Portal. Plug in via USB to view network topology, monitor batteries, and check levels instantly in your browser. No app required.",
+    icon: Monitor,
+    color: "text-orange-600",
+    bgColor: "bg-orange-100",
+    borderColor: "border-l-orange-400"
+  }
+];
+
+const features = [
+  { 
+    label: "Pop-up parties & DJ sets", 
+    desc: "Sync up a massive rig of borrowed speakers in the middle of a park.",
+    icon: Zap,
+    bg: "bg-yellow-400",
+    text: "text-black"
+  },
+  { 
+    label: "Immersive theatre", 
+    desc: "Send directed audio to specific headset groups or trigger localized sounds in different rooms of an installation.",
+    icon: Users,
+    bg: "bg-pink-500",
+    text: "text-white"
+  },
+  { 
+    label: "Quick rehearsals", 
+    desc: "Get the sound up and running in 5 minutes so you can actually focus on the art.",
+    icon: Headphones,
+    bg: "bg-blue-500",
+    text: "text-white"
+  },
+];
 ---
 
 <!doctype html>
@@ -15,6 +119,155 @@ import LandingPage from "../components/LandingPage";
     />
   </head>
   <body>
-    <LandingPage client:load />
+    <div class="min-h-screen bg-[#faf9f6] text-black font-sans relative overflow-x-hidden selection:bg-yellow-300">
+      <div class="absolute inset-0 z-0 pointer-events-none opacity-40 bg-[linear-gradient(to_right,#cbd5e1_1px,transparent_1px),linear-gradient(to_bottom,#cbd5e1_1px,transparent_1px)] bg-[size:32px_32px]"></div>
+
+      <nav class="relative z-10 flex justify-between items-center p-6 max-w-6xl mx-auto border-b-2 border-black/10">
+        <div class="font-mono font-black text-2xl tracking-tighter flex items-center gap-2">
+          <div class="w-6 h-6 bg-yellow-400 border-2 border-black rounded-sm"></div>
+          SOUNDMESH
+        </div>
+      </nav>
+
+      <main class="relative z-10 max-w-6xl mx-auto px-6">
+        <section class="py-24 grid grid-cols-1 md:grid-cols-5 gap-12 items-center">
+          <div class="space-y-8 md:col-span-3">
+            <h1 class="text-4xl md:text-6xl font-black leading-[1.1] tracking-tight">
+              SoundMesh <br />
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-orange-500">
+                Untangle your audio
+              </span>
+            </h1>
+            <p class="text-2xl font-bold text-gray-900 leading-tight">
+              Turn any number of speakers (or headphones) into one perfectly-synced sound system.
+            </p>
+            <p class="text-xl text-gray-800 font-medium max-w-lg leading-relaxed">
+              SoundMesh is a plug-and-play wireless audio system that lets you route one or more audio source(s) to as many speakers or headphones as you want. <br />
+              No proprietary apps, no Wi-Fi routers, and no brand lock-in. Just plug in, and let the mesh do the rest.
+            </p>
+          </div>
+
+          <div class="relative h-96 flex items-center justify-center md:col-span-2">
+            <div class="absolute top-10 left-10 rotate-[-12deg]">
+              <CassetteNode color="bg-yellow-400" label="TX-01 (Master)" />
+            </div>
+            <div class="absolute top-48 left-48 z-20">
+              <CassetteNode color="bg-pink-500" label="RX-01 (L)" />
+            </div>
+            <div class="absolute top-20 right-0 rotate-[8deg] opacity-90 z-10">
+              <CassetteNode color="bg-blue-400" label="RX-02 (R)" />
+            </div>
+            <svg class="absolute inset-0 w-full h-full -z-10" style="stroke-dasharray: 8, 8;">
+              <path d="M 120 120 Q 200 200 240 240" fill="transparent" stroke="black" stroke-width="3" />
+              <path d="M 160 100 Q 300 100 360 140" fill="transparent" stroke="black" stroke-width="3" />
+            </svg>
+          </div>
+        </section>
+
+        {/* Video Section */}
+        <section class="py-12">
+          <VideoPlayer client:load />
+        </section>
+
+        <section class="py-12">
+          <div class="bg-black text-white rounded-3xl p-12 md:p-16 shadow-[8px_8px_0px_0px_#ff007f] relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 opacity-10">
+              <GitMerge size={300} />
+            </div>
+            <div class="max-w-4xl mx-auto relative z-10 text-center">
+              <h2 class="text-4xl font-black mb-6 text-yellow-400">Take the frustration out of audio setup</h2>
+              <p class="text-xl text-gray-300 leading-relaxed font-medium mb-12 max-w-2xl mx-auto">
+                If you’ve ever tried to set up distributed audio for a pop-up party, a DIY show, or a theater rehearsal, you already know the headache.
+              </p>
+              
+              <div class="grid md:grid-cols-3 gap-6 text-white text-left">
+                {problems.map((item) => (
+                  <div class="bg-white/10 p-6 rounded-xl border-2 border-white/20 backdrop-blur-sm">
+                     <h3 class={`font-bold text-lg mb-2 ${item.color}`}>{item.title}</h3>
+                     <p class="text-sm font-medium text-gray-300">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+
+              <p class="text-xl text-white leading-relaxed font-bold mt-12 border-t border-white/20 pt-8 max-w-2xl mx-auto">
+                We needed something fast, portable, and reliable. So we built it.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="py-12">
+            <h2 class="text-4xl font-black mb-6">How it works</h2>
+            <p class="text-xl font-medium text-gray-700 mb-12 max-w-4xl">SoundMesh simplifies professional audio setups using wireless Wi-Fi mesh technology. The audio stays locked in tight sync with under 50ms of latency, no matter what speaker brands you happen to be mixing and matching.</p>
+          
+          <div class="grid md:grid-cols-3 gap-8 relative">
+            <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-black/20 -z-10 border-t-2 border-dashed border-black"></div>
+
+            {steps.map((item) => (
+              <Card class="bg-white flex flex-col items-center text-center">
+                <div class={`w-16 h-16 border-2 border-black rounded-full flex items-center justify-center mb-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ${item.color} ${item.textColor}`}>
+                  <span class="text-2xl font-black">{item.step}</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-3">{item.title}</h3>
+                <p class="font-medium text-gray-700" set:html={item.desc} />
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        <section class="py-12">
+          <h2 class="text-4xl font-black mb-12">High quality, reliable tech</h2>
+          <div class="grid md:grid-cols-2 gap-8">
+            {techSpecs.map((item) => (
+              <Card class={`flex items-start gap-6 border-l-8 ${item.borderColor}`}>
+                <div class={`p-3 border-2 border-black rounded-lg shrink-0 ${item.bgColor}`}>
+                  <item.icon size={28} class={item.color} />
+                </div>
+                <div>
+                  <h4 class="text-xl font-bold mb-2">{item.title}</h4>
+                  <p class="text-gray-700 font-medium">{item.desc}</p>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        <section class="py-12">
+          <h2 class="text-4xl font-black mb-6">Built for temporary spaces and shared moments</h2>
+          <p class="text-xl font-medium text-gray-700 mb-12 max-w-2xl">SoundMesh is the ultimate tool for artists, performers, and DIY event hosts who need distributed sound without the infrastructure.</p>
+          
+          <div class="grid md:grid-cols-3 gap-4">
+            {features.map((item) => (
+              <div class="bg-white border-2 border-black rounded-xl p-6 flex flex-col shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                <div class={`self-end p-2 border-2 border-black rounded-full mb-4 ${item.bg}`}>
+                  <item.icon size={28} class={item.text} />
+                </div>
+                <div>
+                  <h4 class="font-bold text-lg md:text-2xl leading-tight mb-2">{item.label}</h4>
+                  <p class="text-sm font-medium opacity-80">{item.desc}</p>
+                  <div class="w-8 h-1 bg-black mt-4"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section class="py-24">
+          <div class="bg-orange-500 border-4 border-black rounded-3xl p-12 md:p-20 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden">
+            <div class="relative z-10">
+              <h2 class="text-3xl md:text-5xl font-black text-black tracking-tight uppercase leading-none">
+                What would you build if distributed audio was this easy?
+              </h2>
+            </div>
+          </div>
+        </section>
+
+        <footer class="py-12border-t-2 border-black/10">
+          <div class="text-gray-600 font-mono text-sm font-bold flex flex-col md:flex-row px-6">
+            <p>© 2026 SoundMesh Systems</p>
+          </div>
+        </footer>
+      </main>
+    </div>
   </body>
 </html>
