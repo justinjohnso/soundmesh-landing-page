@@ -2,6 +2,8 @@ import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 
+import sitemap from "@astrojs/sitemap";
+
 const repository = process.env.GITHUB_REPOSITORY;
 const [owner, repo] = repository ? repository.split("/") : [];
 const isGitHubActions = process.env.GITHUB_ACTIONS === "true";
@@ -26,7 +28,6 @@ const base = isGitHubActions
 
 export default defineConfig({
   output: "static",
-  site,
-  base,
-  integrations: [react(), tailwind()]
+  site: "https://soundmesh.xyz",
+  integrations: [react(), tailwind(), sitemap()]
 });
